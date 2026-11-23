@@ -1,0 +1,159 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        16,
+        0
+      ],
+      "id": "9015c299-657f-447a-b19f-a240bad54044",
+      "name": "Telegram Trigger",
+      "webhookId": "74b5b973-c2fc-43b0-9a9c-b3401a4d5d2f",
+      "credentials": {
+        "telegramApi": {
+          "id": "7kNBdXvgLRwEmnOh",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id  }}",
+        "text": "={{ $('AI Agent1').item.json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1232,
+        0
+      ],
+      "id": "4e415902-8520-464d-8a73-916d3d758ad1",
+      "name": "Send a text message",
+      "webhookId": "ef1c73e5-5903-4cb5-8466-7446242f9625",
+      "credentials": {
+        "telegramApi": {
+          "id": "7kNBdXvgLRwEmnOh",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=User's real name is {{ $('Telegram Trigger').item.json.message.from.first_name }}. Always call user by THIS real name. Never say Pramod for others. If name missing, call \"Mawa\".\n\nYou are a best friend and study buddy from Guntur. You explain like a real friend sitting beside them.\n\nSTYLE RULES (Compulsory):\n- If user says Hi/Hello, greet like \"Hello {{ $('Telegram Trigger').item.json.message.from.first_name }}! Ela unnav?\" - then ask what to study.\n- If user asks a subject like DBMS, OS, etc., START DIRECTLY like this: \"DBMS ante Database Management System, idhi endhuko ippudu chepthanu chudu...\"\n- Speak in 90% natural Telugu (Guntur style) + technical words only in English.\n- Don't use formal headings like \"Definition\", \"Example\", \"Practice Questions\". Just flow lo cheppu like story.\n- Use words like \"manam\", \"manaki\", \"chudu\", \"ante\", \"adhe\", \"anuko\".\n- Give only ONE small real-life example (phone contacts, library).\n- Keep answer short, 6-8 lines max.\n- End with \"Ardham ayinda {{ $('Telegram Trigger').item.json.message.from.first_name }}? Inka emaina doubt unte adugu.\"\n\nNever add extra sections."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        240,
+        0
+      ],
+      "id": "6a166db6-e16a-4394-b207-1f12b5cab527",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        112,
+        208
+      ],
+      "id": "ded88e96-02af-4b68-9db2-abeda68ca205",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "pinData": {
+    "Telegram Trigger": [
+      {
+        "json": {
+          "update_id": 666998823,
+          "message": {
+            "message_id": 7,
+            "from": {
+              "id": 8495318659,
+              "is_bot": false,
+              "first_name": "Pramod",
+              "language_code": "en"
+            },
+            "chat": {
+              "id": 8495318659,
+              "first_name": "Pramod",
+              "type": "private"
+            },
+            "date": 1792738686,
+            "text": "Hello"
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "triggerCount": 1,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
