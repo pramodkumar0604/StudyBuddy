@@ -14,12 +14,8 @@
         16,
         0
       ],
-      "id": "9015c299-657f-447a-b19f-a240bad54044",
-      "name": "Telegram Trigger",
-      "webhookId": "74b5b973-c2fc-43b0-9a9c-b3401a4d5d2f",
-      "credentials": {
-        "telegramApi": {
-          "id": "7kNBdXvgLRwEmnOh",
+     
+   
           "name": "Telegram account"
         }
       }
