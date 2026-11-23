@@ -32,12 +32,12 @@
         1232,
         0
       ],
-      "id": "4e415902-8520-464d-8a73-916d3d758ad1",
+     
       "name": "Send a text message",
-      "webhookId": "ef1c73e5-5903-4cb5-8466-7446242f9625",
+    
       "credentials": {
         "telegramApi": {
-          "id": "7kNBdXvgLRwEmnOh",
+         
           "name": "Telegram account"
         }
       }
@@ -56,7 +56,7 @@
         240,
         0
       ],
-      "id": "6a166db6-e16a-4394-b207-1f12b5cab527",
+     
       "name": "AI Agent1"
     },
     {
@@ -69,7 +69,7 @@
         112,
         208
       ],
-      "id": "ded88e96-02af-4b68-9db2-abeda68ca205",
+     
       "name": "Google Gemini Chat Model1",
       "credentials": {
         "googlePalmApi": {
